@@ -42,29 +42,26 @@ class Store:
         Reduces the stock and returns the total price.
         """
         total_price = 0.0
-        for prod, qty in shopping_list:
-            if prod not in self._products:
-                continue
-
-            if not prod.active or prod.quantity < qty:
-                raise ValueError(f"Insufficient stock for product: {prod.name}")
-
-            prod.quantity -= qty
-            total_price += prod.price * qty
+        for prod_obj, qty in shopping_list:
+            store_prod = next((p for p in self._products if p.name == prod_obj.name), None)
+            # deduct and accumulate
+            try:
+                total_price += store_prod.buy(qty)
+            except Exception as e:
+                print(e)
         return total_price
 
 
 def main():
-    product_list = [
-        Product("MacBook Air M2", price=1450, quantity=100),
-        Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-        Product("Google Pixel 7", price=500, quantity=250),
-    ]
+    product_list = [Product("MacBook Air M2", price=1450, quantity=100),
+                    Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                    Product("Google Pixel 7", price=500, quantity=250),
+                    ]
+
     best_buy = Store(product_list)
-    all_products = best_buy.get_all_products()
+    products = best_buy.get_all_products()
     print(best_buy.get_total_quantity())
-    print(best_buy.order([(all_products[0], 1), (all_products[1], 2)]))
-    print(best_buy.get_all_products())
+    print(best_buy.order([(products[0], 1), (products[1], 2)]))
 
 
 if __name__ == "__main__":

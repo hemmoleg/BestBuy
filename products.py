@@ -1,4 +1,5 @@
 class Product:
+
     def __init__(self, name, price, quantity):
        self.active = True
 
@@ -37,7 +38,7 @@ class Product:
 
 
     def show(self):
-        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
 
     def buy(self, quantity):
@@ -47,8 +48,7 @@ class Product:
             raise ValueError("the quantity to buy is more than what is in stock")
 
         self.quantity -= quantity
-
-        return(f"Bought {quantity} {self.name} for total cost of: {quantity * self.price}")
+        return quantity * self.price
 
 
 def main():
@@ -58,6 +58,7 @@ def main():
     print(bose.buy(50))
     print(mac.buy(100))
     print(mac.is_active())
+    print(bose.name)
 
     bose.show()
     mac.show()
