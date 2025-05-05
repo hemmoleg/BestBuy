@@ -91,3 +91,20 @@ def start(store):
         except ValueError:
             print("Invalid input. Please enter a number between 1 and 4.")
             continue
+
+        if choice == 1:
+            for p in best_buy.get_all_products():
+                print(p.show())
+            print()
+        elif choice == 2:
+            print(f"Total of {best_buy.get_total_quantity()} items in store")
+            print()
+        elif choice == 3:
+            make_order(best_buy)
+            print()
+        elif choice == 4:
+            exit()
+
+
+if __name__ == '__main__':
+    start(STORE)
