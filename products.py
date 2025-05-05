@@ -1,47 +1,102 @@
 class Product:
+    """
+    Represents a product with a name, price, quantity, and active status.
+    """
 
     def __init__(self, name, price, quantity):
-       self.active = True
+        """
+        Initialize a Product instance.
 
-       if not name:
-           raise ValueError("name must not be empty")
-       if price < 0:
-           raise ValueError("price must not be negative")
-       if quantity < 0:
-           raise ValueError("quantity must not be negative")
+        Args:
+            name (str): The name of the product.
+            price (float): The price per unit of the product.
+            quantity (int): The initial quantity in stock.
 
-       self.name = name
-       self.price = price
-       self.quantity = quantity
+        Raises:
+            ValueError: If name is empty, or if price or quantity is negative.
+        """
+        self.active = True
 
+        if not name:
+            raise ValueError("name must not be empty")
+        if price < 0:
+            raise ValueError("price must not be negative")
+        if quantity < 0:
+            raise ValueError("quantity must not be negative")
+
+        self.name = name
+        self.price = price
+        self.quantity = quantity
 
     def get_quantity(self):
+        """
+        Returns the current quantity in stock.
+
+        Returns:
+            int: The quantity of the product.
+        """
         return self.quantity
 
-
     def set_quantity(self, quantity):
+        """
+        Sets a new quantity for the product.
+
+        Args:
+            quantity (int): The new quantity to set.
+
+        Raises:
+            ValueError: If quantity is negative.
+        """
         if quantity < 0:
             raise ValueError("quantity must not be negative")
         self.quantity = quantity
 
+        if self.quantity <= 0:
+            self.deactivate()
 
     def is_active(self):
+        """
+        Checks if the product is currently active.
+
+        Returns:
+            bool: True if active, False otherwise.
+        """
         return self.active
 
-
     def activate(self):
+        """
+        Marks the product as active.
+        """
         self.active = True
 
-
     def deactivate(self):
+        """
+        Marks the product as inactive.
+        """
         self.active = False
 
-
     def show(self):
+        """
+        Returns a string representation of the product.
+
+        Returns:
+            str: Product name, price, and quantity.
+        """
         return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
-
     def buy(self, quantity):
+        """
+        buy a certain quantity of the product.
+
+        Args:
+            quantity (int): The number of units to buy.
+
+        Returns:
+            float: The total price for the purchase.
+
+        Raises:
+            ValueError: If quantity is negative or exceeds stock.
+        """
         if quantity < 0:
             raise ValueError("quantity must not be negative")
         if quantity > self.quantity:
