@@ -40,6 +40,7 @@ def make_order_item(products):
         print("Error adding product!")
         return False
 
+    products[int(p_choice) - 1].buy(int(am_choice))
     return products[int(p_choice) - 1], int(am_choice)
 
 
@@ -52,7 +53,7 @@ def make_order(store):
     """
     order_items = []
     while True:
-        order_item = make_order_item(store.get_all_products())
+        order_item = make_order_item(store.get_all_active_products())
         if order_item:
             order_items.append(order_item)
             print("Product added to list!")
@@ -93,7 +94,7 @@ def start(store):
             continue
 
         if choice == 1:
-            for p in best_buy.get_all_products():
+            for p in best_buy.get_all_active_products():
                 print(p.show())
             print()
         elif choice == 2:

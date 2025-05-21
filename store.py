@@ -29,7 +29,7 @@ class Store:
         return sum(p.quantity for p in self._products if p.active)
 
 
-    def get_all_products(self):
+    def get_all_active_products(self):
         """
         Returns a list of all active products in the store.
         """
@@ -46,7 +46,7 @@ class Store:
             store_prod = next((p for p in self._products if p.name == prod_obj.name), None)
             # deduct and accumulate
             try:
-                total_price += store_prod.buy(qty)
+                total_price += store_prod.price * qty
             except Exception as e:
                 print(e)
         return total_price
@@ -59,7 +59,7 @@ def main():
                     ]
 
     best_buy = Store(product_list)
-    products = best_buy.get_all_products()
+    products = best_buy.get_all_active_products()
     print(best_buy.get_total_quantity())
     print(best_buy.order([(products[0], 1), (products[1], 2)]))
 

@@ -102,7 +102,7 @@ class Product:
         if quantity > self.quantity:
             raise ValueError("the quantity to buy is more than what is in stock")
 
-        self.quantity -= quantity
+        self.set_quantity(self.quantity - quantity)
         return quantity * self.price
 
 
